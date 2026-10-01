@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Fredoka', sans-serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #131c2e;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    touch-action: manipulation;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans-ui {
+  font-family: var(--font-sans);
+}
+
+.font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tactile 2D Casual Game Buttons */
+.btn-tactile-green {
+  background: linear-gradient(180deg, #5CE068 0%, #38B64A 100%);
+  box-shadow: 0 5px 0 #248232, 0 8px 16px rgba(36, 130, 50, 0.3);
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s ease;
+}
+.btn-tactile-green:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #248232, 0 3px 6px rgba(36, 130, 50, 0.25);
+}
+
+.btn-tactile-amber {
+  background: linear-gradient(180deg, #FFD447 0%, #F59E0B 100%);
+  box-shadow: 0 5px 0 #B45309, 0 8px 16px rgba(180, 83, 9, 0.28);
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s ease;
+}
+.btn-tactile-amber:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #B45309, 0 3px 6px rgba(180, 83, 9, 0.2);
+}
+
+.btn-tactile-blue {
+  background: linear-gradient(180deg, #60A5FA 0%, #2563EB 100%);
+  box-shadow: 0 4px 0 #1D4ED8, 0 6px 14px rgba(29, 78, 216, 0.25);
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s ease;
+}
+.btn-tactile-blue:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1D4ED8;
+}
+
+.btn-tactile-cream {
+  background: linear-gradient(180deg, #FFFDF9 0%, #F4EAD5 100%);
+  box-shadow: 0 4px 0 #D0B894, 0 6px 12px rgba(92, 67, 38, 0.12);
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.1s ease;
+}
+.btn-tactile-cream:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #D0B894;
+}
+
+/* Custom subtle scrollbars for map & modals */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(180, 140, 90, 0.45);
+  border-radius: 9999px;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: floatSlow 3.2s ease-in-out infinite;
+}
+
+@keyframes popScale {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pop {
+  animation: popScale 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Quick indeterminate slide used on the fast splash */
+@keyframes barSlide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+/* Shimmer sweep used on the persistent achievement banner */
+@keyframes shimmerSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Gentle trophy badge bounce */
+@keyframes trophyBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.06); }
+}
+
+.animate-trophy {
+  animation: trophyBounce 1.4s ease-in-out infinite;
+}
+
+/* Safe-area padding for notched phones */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Respect users who prefer reduced motion — keep the game playable without flashing/floating */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pop,
+  .animate-trophy,
+  .animate-pulse,
+  .animate-bounce,
+  .animate-ping {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Light sweep across the primary CTA — draws the eye without affecting layout */
+.shine-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.shine-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.42) 48%, transparent 62%);
+  background-size: 220% 100%;
+  animation: shimmerSweep 3.2s linear infinite;
+  pointer-events: none;
+}
+
+/* Coin count-up ticker on the win screen */
+@keyframes coinPop {
+  0% { transform: scale(0.6) rotate(-12deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.animate-coin-pop {
+  animation: coinPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Star reveal cascade on the win screen */
+@keyframes starReveal {
+  0% { transform: scale(0) rotate(-40deg); opacity: 0; }
+  70% { transform: scale(1.3) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.animate-star-reveal {
+  animation: starReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ===== World Map polish ===== */
+.node-current {
+  background: radial-gradient(circle at 35% 30%, #FDE68A, #F59E0B 55%, #B45309);
+  box-shadow: 0 6px 0 #92400E, 0 10px 22px rgba(180, 83, 9, 0.45), 0 0 0 4px rgba(255,255,255,0.9), 0 0 28px 6px rgba(251,191,36,0.55);
+}
+.node-done {
+  box-shadow: 0 5px 0 rgba(0,0,0,0.35), 0 8px 16px rgba(0,0,0,0.3), inset 0 -3px 0 rgba(0,0,0,0.18), 0 0 0 3px rgba(255,255,255,0.85);
+}
+.node-open {
+  background: radial-gradient(circle at 35% 30%, #93C5FD, #3B82F6 55%, #1D4ED8);
+  box-shadow: 0 5px 0 #1E3A8A, 0 8px 16px rgba(29, 78, 216, 0.4), 0 0 0 3px rgba(255,255,255,0.85);
+}
+.node-locked {
+  background: radial-gradient(circle at 35% 30%, #94A3B8, #475569 60%, #334155);
+  box-shadow: 0 4px 0 #1E293B, 0 6px 12px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.35);
+}
+
+@keyframes slideInLeft {
+  0% { transform: translateX(60px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInRight {
+  0% { transform: translateX(-60px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.animate-slide-in-left {
+  animation: slideInLeft 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-slide-in-right {
+  animation: slideInRight 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes bgFade {
+  0% { opacity: 0; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-bg-fade {
+  animation: bgFade 0.6s ease-out both;
+}
+
+/* Gentle cross-fade when switching top-level screens (home / map / play) */
+@keyframes screenFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-screen-fade {
+  animation: screenFade 0.22s ease-out both;
+}
+
+/* GPU-promote animated layers to avoid repaint jank on mobile */
+.animate-float,
+.animate-slide-in-left,
+.animate-slide-in-right,
+.animate-bg-fade,
+.animate-screen-fade {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Smoother momentum scrolling on iOS */
+.custom-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}

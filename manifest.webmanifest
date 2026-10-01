@@ -1,0 +1,21 @@
+{
+  "name": "Tile Trails",
+  "short_name": "Tile Trails",
+  "description": "A relaxing 2D fruit tile-matching puzzle adventure across 50 worlds by Wrld Studio.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "en",
+  "categories": ["games", "puzzle", "casual"],
+  "icons": [
+    {
+      "src": "images/tile_trails_banner.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
