@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="description" content="Tile Trails — a relaxing 2D fruit tile-matching puzzle adventure across 50 worlds." />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="./images/tile_trails_banner.png" />
+    <link rel="apple-touch-icon" href="./images/tile_trails_banner.png" />
+    <title>Tile Trails — 2D Mobile Tile-Matching Puzzle</title>
+
+    <!--
+      Critical inline styles: paint a dark, branded backdrop on the VERY first frame
+      so there is never a white flash while the JS bundle / fonts load (important
+      inside a WebView/APK where the bundle can take a moment to evaluate).
+    -->
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #0f172a;
+        color: #fff;
+        height: 100%;
+        overflow: hidden;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+        overscroll-behavior: none;
+        touch-action: manipulation;
+      }
+      #root {
+        min-height: 100%;
+        background: #0f172a;
+      }
+      /* Pre-React boot splash (replaced the instant React mounts) */
+      #boot {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        background: radial-gradient(circle at 50% 40%, #1e293b 0%, #0f172a 70%);
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        z-index: 9999;
+      }
+      #boot .logo {
+        width: 72px;
+        height: 72px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, #fde047, #f59e0b 55%, #ea580c);
+        box-shadow: 0 10px 30px rgba(245, 158, 11, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+      }
+      #boot .title {
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        font-size: 14px;
+        color: #fcd34d;
+        text-transform: uppercase;
+      }
+      #boot .bar {
+        width: 140px;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        overflow: hidden;
+      }
+      #boot .bar > i {
+        display: block;
+        width: 40%;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #fbbf24, #f97316);
+        animation: bootSlide 0.9s ease-in-out infinite;
+      }
+      @keyframes bootSlide {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(350%); }
+      }
+    </style>
+
+    <!-- Fonts are loaded non-blocking; system fonts render immediately as fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    >
+  </head>
+  <body class="select-none overflow-hidden">
+    <div id="root">
+      <div id="boot" aria-hidden="true">
+        <div class="logo">🍎</div>
+        <div class="title">Wrld Studio</div>
+        <div class="bar"><i></i></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
